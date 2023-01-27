@@ -1,0 +1,16 @@
+django
+djangorestframework
+Pillow
+psycopg2-binary
+drf-yasg
+django-filter
+dj-rest-auth
+djangorestframework-simplejwt
+python-decouple
+<<<<<<< Updated upstream
+beautifulsoup4
+requests
+lxml
+=======
+django-ckeditor
+>>>>>>> Stashed changes
