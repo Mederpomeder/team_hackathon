@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
     'ckeditor',
+    'django_rest_passwordreset',
+
 
     #our_apps
     'account',
