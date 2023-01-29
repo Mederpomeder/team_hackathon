@@ -18,9 +18,16 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 
+
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
 from rest_framework.routers import SimpleRouter
 
 from category.views import CategoryViewSet
+
+router = SimpleRouter()
+router.register('categories', CategoryViewSet)
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -31,7 +38,7 @@ router.register('categories', CategoryViewSet)
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Shop API",
+      title="Booking API",
       default_version='v1',
       description="Test description",
       terms_of_service="https://www.google.com/policies/terms/",
@@ -50,6 +57,9 @@ urlpatterns = [
     path('api/v1/accounts/', include('account.urls')),
     path('api/v1/products/', include('product.urls')),
     path('api/v1/', include(router.urls)),
+    path('api/v1/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('api/v1/', include('order.urls')),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
