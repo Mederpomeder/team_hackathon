@@ -1,3 +1,5 @@
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -11,6 +13,16 @@ from . import serializers
 from .permissions import IsAuthor, IsAuthorOrAdmin, IsAuthorOrAdminOrPostOwner
 
 from .models import Product, Like, Comment
+import logging
+
+logger = logging.getLogger('products.view')
+
+
+def view_product(request, product_title):
+    product = get_object_or_404(Product, title=product_title)
+    logger.info(f'Viewing product: title={product.title}, owner={product.owner}, price={product.price}')
+    return HttpResponse('Log messages sent')
+
 
 
 class StandartResultPagination(PageNumberPagination):

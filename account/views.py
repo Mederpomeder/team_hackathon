@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
-from rest_framework import permissions
+from django.http import HttpResponse
+from rest_framework import permissions, response
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -7,6 +8,16 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from . import serializers
 from .send_mail import send_confirmation_email
+import logging
+
+
+logger = logging.getLogger('account.view')
+
+
+def account_view(request):
+    logger.info('Returning response: status_code=%d, data=%s', response.status_code, response.data)
+    return HttpResponse('Log messages sent')
+
 
 User = get_user_model()
 
