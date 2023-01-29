@@ -1,12 +1,21 @@
+from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import permissions, response, generics
 from rest_framework.decorators import action
-from .models import Product, Favorites
+from rest_framework.pagination import PageNumberPagination
+from django_filters.rest_framework import DjangoFilterBackend
+
+from .models import Favorites
 from . import serializers
 from .permissions import IsAuthor, IsAuthorOrAdmin, IsAuthorOrAdminOrPostOwner
 
 from .models import Product, Like, Comment
+
+
+class StandartResultPagination(PageNumberPagination):
+    page_size = 2
+    page_query_param = 'page'
 
 
 class CommentCreateView(generics.ListCreateAPIView):
@@ -32,10 +41,10 @@ class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
-    # pagination_class = StandartResultPagination
-    # filter_backends = (SearchFilter, DjangoFilterBackend)
-    # search_fields = ('title',)
-    # filterset_fields = ('owner', 'category')
+    pagination_class = StandartResultPagination
+    filter_backends = (SearchFilter, DjangoFilterBackend)
+    search_fields = ('title', 'price',)
+    filterset_fields = ('owner', 'category', 'price')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

@@ -7,10 +7,8 @@ django-filter
 dj-rest-auth
 djangorestframework-simplejwt
 python-decouple
-<<<<<<< Updated upstream
 beautifulsoup4
 requests
 lxml
-=======
 django-ckeditor
->>>>>>> Stashed changes
+
